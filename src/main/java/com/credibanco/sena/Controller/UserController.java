@@ -13,14 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -47,16 +40,33 @@ public class UserController {
             }
         }
 
+        //metodos que realizo jonny
         @GetMapping("/read/{id}")
-        public ResponseEntity<Map<String, Object>> readUser(@PathVariable Long id) {
+        public ResponseEntity<Map<String, Object>> readId(@PathVariable Long id) {
             Map<String, Object> response = new HashMap<>();
             try {
                 response = new HashMap<>();
-                List<UserDtoResponse> listUser = this.usuarioService.readUser(id);
+                List<UserDtoResponse> listUser = this.usuarioService.readId(id);
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
+        }
+
+        // este es un metodo nada funcional
+        @GetMapping("/read/all")
+        public ResponseEntity readAll (UserDtoRequest userDtoRequest){
+            Map<String, Object> response = new HashMap<>();
+            try{
+                response = new HashMap<>();
+                List<UserDtoResponse> listUser = this.usuarioService.readAll(userDtoRequest);
+
+                return readAll((UserDtoRequest) listUser);
+            }
+            catch (Exception e){
+                logger.info("----Hubo un error---" + e);
+            }
+            return null;
         }
 
         @PutMapping("/update")

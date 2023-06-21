@@ -7,7 +7,9 @@ import com.credibanco.sena.Entity.User;
 public interface UserService {
 
     UserDtoResponse createUser (UserDtoRequest usuarioDTORequest) ;
-    List<UserDtoResponse> readUser (Long id);
+    List<UserDtoResponse> readId (Long id);
+
+    List<UserDtoResponse> readAll(UserDtoRequest userDtoRequest);
     UserDtoResponse updateUser (UserDtoRequest usuarioDTORequest);
     UserDtoResponse deleteUser (Long id );
 
